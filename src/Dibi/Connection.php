@@ -284,7 +284,12 @@ class Connection implements IConnection {
         }
 
         \dibi::$sql = $sql;
-        $params = (method_exists($this->driver, 'getParameters') ? $this->driver->getParameters() : null);
+
+        try {
+            $params = $this->driver->getParameters() ?? null;
+        } catch (NotSupportedException $e) {
+            $params = null;
+        }
         $event = $this->onEvent ? new Event($this, Event::QUERY, $sql, $params) : null;
 
         try {

@@ -237,7 +237,7 @@ class SqlsrvDriver implements Dibi\Driver {
         ];
     }
 
-    public function getParameters() {
+    public function getParameters(): array {
         return $this->paramValues;
     }
 
